@@ -1,0 +1,62 @@
+morocc,161,90,5	script	Sadanan Quest Hunt	100,{
+	mes "[Poring Hunt]";
+	mes "Welcome! I can give some quest and reward";
+	mes "Choose the quest what you want:";
+	
+	.@choice = select(
+		"Kill Poring [Red 10]",
+		"Kill Fabre [Blue 10]",
+		"Leave"
+	);
+	next;
+	
+	if (.@choice == 3) {
+		
+		mes "See you again!";
+		close;
+	}
+	
+	switch (.@choice)
+	{
+		case 1:
+			set .@monsterName$, "Poring";
+			set .@questId, 88880;
+			set .@itemId, 501;
+			break;
+		case 2:
+			set .@monsterName$, "Fabre";
+			set .@questId, 88881;
+			set .@itemId, 505;
+			break;
+	}
+	
+	
+	
+	if (checkquest(.@questId,HUNTING) == -1)
+	{
+		mes "["+.@monsterName$+" Hunt]";
+		mes "Kill "+.@monsterName$+" for reward!";
+		setquest .@questId;
+	}
+	else if (checkquest(.@questId, HUNTING) == 1) 
+	{
+		mes "["+.@monsterName$+" Hunt]";
+		mes "You still in progress on this quest"; 
+	}
+	else if (checkquest(.@questId, HUNTING) == 2) 
+	{
+		mes "["+.@monsterName$+" Hunt]";
+		mes "You completed this quest!";
+		mes "Here's your bonus reward.";
+		getitem .@itemId, 10;
+		completequest .@questId;
+		erasequest .@questId;
+	}
+	
+	close;
+	end;
+	
+OnInit:
+	questinfo( QTYPE_QUEST, QMARK_YELLOW, "!isbegin_quest(88880) || !isbegin_quest(88881)" );
+	end;
+}

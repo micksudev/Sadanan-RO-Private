@@ -1,0 +1,76 @@
+morocc,152,90,5	shop	Sadanan Shop	99,501:1,502:2,503:3
+
+morocc,156,90,5	script	Sadanan Trader	813,{
+	mes "[Potion Trader]";
+	mes "Welcome! I can exchange your potions for better ones.";
+	mes "You Have";
+	mes "Red Potion: " + countitem(501);
+	mes "Orange Potion: " + countitem(502);
+	mes "Yellow Potion: " + countitem(503);
+	mes "Choose the exchange you want:";
+	
+	.@choice = select(
+		"Red to Orange (10=1)",
+		"Orange to Yellow (5=1)",
+		"Yellow to Blue (2=1)",
+		"Leave"
+	);
+	
+	if (.@choice == 4) {
+		next;
+		mes "See you again!";
+		close;
+	}
+	
+	switch (.@choice) {
+		case 1:
+			set .@exchangePotion, 501;
+			set .@exchangePotionName$, "Red Potion";
+			set .@exchangeDestination, 502;
+			set .@exchangeDestinationName$, "Orange Potion";
+			set .@rate, 10;
+			break;
+		case 2:
+			set .@exchangePotion, 502;
+			set .@exchangePotionName$, "Orange Potion";
+			set .@exchangeDestination, 503;
+			set .@exchangeDestinationName$, "Yellow Potion";
+			set .@rate, 5;
+			break;
+		case 3:
+			set .@exchangePotion, 503;
+			set .@exchangePotionName$, "Yellow Potion";
+			set .@exchangeDestination, 505;
+			set .@exchangeDestinationName$, "Blue Potion";
+			set .@rate, 2;
+			break;
+	}
+	
+	next;
+	mes "[Potion Trader]";
+	mes "How many " + .@exchangeDestinationName$ + " would you like to receive?";
+	mes "You need " + .@rate + " " + .@exchangePotionName$ + " for each.";
+	input .@amount, 0, 1000;
+	next;
+	
+	if(.@amount == 0)
+	{
+		mes "See you next time.";
+		close;
+	}
+
+	.@required = .@rate * .@amount;
+	
+	if (countitem(.@exchangePotion) < .@required) {
+		mes "You don't have enough " + .@exchangePotionName$ + ".";
+		mes "You need " + .@required + " to exchange for " + .@amount + " " + .@exchangeDestinationName$ + ".";
+		close;
+	}
+
+	delitem .@exchangePotion, .@required;
+	getitem .@exchangeDestination, .@amount;
+
+	mes "Exchange successful!";
+	mes "You received " + .@amount + " " + .@exchangeDestinationName$ + "(s).";
+	close;
+}
