@@ -13398,3 +13398,13 @@ Body:
   - Id: 62238
     Title: Midgardian Mercenary timer
     TimeLimit: +3h
+  - Id: 88880
+    Title: "Poring Hunt"
+    Targets:
+      - Mob: "Poring"
+        Count: 1
+  - Id: 88881
+    Title: "Fabre Hunt"
+    Targets:
+      - Mob: "Fabre"
+        Count: 1
