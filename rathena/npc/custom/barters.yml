@@ -45,3 +45,38 @@
 Header:
   Type: BARTER_DB
   Version: 2
+  
+Body:
+  - Name: Sadanan Barter Shop
+    Map: morocc
+    X: 156
+    Y: 87
+    Direction: South
+    Sprite: 1_etc_01
+    Items:
+      - Index: 0
+        Item: Orange_Potion
+        RequiredItems:
+          - Index: 0
+            Item: Red_Potion
+            Amount: 5
+      - Index: 1
+        Item: Yellow_Potion
+        RequiredItems:
+          - Index: 0
+            Item: Orange_Potion
+            Amount: 5
+      - Index: 2
+        Item: White_Potion
+        Zeny: 5000
+        RequiredItems:
+          - Index: 0
+            Item: Yellow_Potion
+            Amount: 3
+      - Index: 3
+        Item: Blue_Potion
+        Zeny: 50000
+        RequiredItems:
+          - Index: 0
+            Item: White_Potion
+            Amount: 3
